@@ -4,18 +4,21 @@ from math import *
 
 def add_circle( points, cx, cy, cz, r, step ):
     t = 0
-    x0 = r * cos(0) + cx
-    y0 = r * sin(0) + cy
     while(t <= 1):
-	x1 = r * cos(2 * pi * t) + cx
-        y1 = r * sin(2 * pi * t) + cy
-	add_edge(points, x0, y0, cz, x1, y1, cz)
-        x0 = x1
-        y0 = y1
+	x = r * cos(2 * pi * t) + cx
+        y = r * sin(2 * pi * t) + cy
+	add_point(points, x, y, cz)
         t += step
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
-    pass
+    coeffs = generate_curve_coefs([x0, y0], [x1, y1], [x2, y2], [x3, y3], curve_type)
+    t = 0
+    while(t <= 1):
+	x = coeffs[3][0] + t * (coeffs[2][0] + t * (coeffs[1][0] + t * coeffs[0][0]))
+	y = coeffs[3][1] + t * (coeffs[2][1] + t * (coeffs[1][1] + t * coeffs[0][1]))
+        add_point(points, x, y)
+	t += step
+
 
 
 def draw_lines( matrix, screen, color ):
@@ -24,7 +27,7 @@ def draw_lines( matrix, screen, color ):
         return
 
     point = 0
-    while point < len(matrix) - 1:
+    while (point < len(matrix) - 1):
         draw_line( int(matrix[point][0]),
                    int(matrix[point][1]),
                    int(matrix[point+1][0]),

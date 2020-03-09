@@ -16,8 +16,18 @@ def make_hermite():
     pass
 
 def generate_curve_coefs( p0, p1, p2, p3, t ):
-    pass
-
+    coeffs = []
+    if (t == 'b'):
+        coeffs.append([(-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]), (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1])])
+        coeffs.append([(3 * p0[0] - 6 * p1[0] + 3 * p2[0]), (3 * p0[1] - 6 * p1[1] + 3 * p2[1])])
+	coeffs.append([(-3 * p0[0] + 3 * p1[0]), (-3 * p0[1] + 3 * p1[1])])
+        coeffs.append([(p0[0]), (p0[1])])
+    else:
+        coeffs.append([(2 * p0[0] - 2 * p1[0] + p2[0] + p3[0]), (2 * p0[1] - 2 * p1[1] + p2[1] + p3[1])])
+        coeffs.append([(-3 * p0[0] + 3 * p1[0] - 2 * p2[0] - p3[0]), (-3 * p0[1] + 3 * p1[1] - 2 * p2[1] - p3[1])])
+	coeffs.append([p3[0], p3[1]])
+	coeffs.append([p0[0], p0[1]])
+    return coeffs
 
 def make_translate( x, y, z ):
     t = new_matrix()
