@@ -5,19 +5,19 @@ from math import *
 def add_circle( points, cx, cy, cz, r, step ):
     t = 0
     while(t <= 1):
-	x = r * cos(2 * pi * t) + cx
+        x = r * cos(2 * pi * t) + cx
         y = r * sin(2 * pi * t) + cy
-	add_point(points, x, y, cz)
+        add_point(points, x, y, cz)
         t += step
 
 def add_curve( points, x0, y0, x1, y1, x2, y2, x3, y3, step, curve_type ):
     coeffs = generate_curve_coefs([x0, y0], [x1, y1], [x2, y2], [x3, y3], curve_type)
     t = 0
     while(t <= 1):
-	x = coeffs[3][0] + t * (coeffs[2][0] + t * (coeffs[1][0] + t * coeffs[0][0]))
-	y = coeffs[3][1] + t * (coeffs[2][1] + t * (coeffs[1][1] + t * coeffs[0][1]))
+        x = coeffs[3][0] + t * (coeffs[2][0] + t * (coeffs[1][0] + t * coeffs[0][0]))
+        y = coeffs[3][1] + t * (coeffs[2][1] + t * (coeffs[1][1] + t * coeffs[0][1]))
         add_point(points, x, y)
-	t += step
+        t += step
 
 
 
